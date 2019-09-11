@@ -1,0 +1,26 @@
+{
+    "id": "1456736453328-7918",
+    "timestamp": "1456736453328",
+    "type": "payment.paymentSucceeded",
+    "args": {
+        "terminalMsg": "PAYMENT_SUCCEEDED",
+        "amount": "35.00",
+        "currency": "EUR",
+        "type": "card"
+    }
+}
+
+{
+    "id": "1456736453328-7918",
+    "timestamp": "1456736453328",
+    "type": "payment.paymentFailed",
+    "args": {
+        "terminalMsg": "PAYMENT_FAILED",
+        "amount": "35.00",
+        "currency": "EUR",
+        "type": "card",
+        "actionable" / "retryable": "true"
+    }
+}
+
+

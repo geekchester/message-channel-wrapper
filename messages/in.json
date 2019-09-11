@@ -1,0 +1,11 @@
+{
+    "id": "1456736453328-7918",
+    "timestamp": "1456736453328",
+    "type": "payment.terminal.initialize",
+    "args": {
+        "stage": "WaitingForPayment",
+        "amount": "35.00",
+        "currency": "EUR",
+        "type": "card"
+    }
+}
