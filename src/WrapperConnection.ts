@@ -7,7 +7,7 @@ export default class WrapperConnection {
     private wrapperType: WrapperType;
     private channelName: string;
 
-    private bc: BroadcastChannel | undefined;
+    private mc: MessageChannel | undefined;
 
     constructor(wrapperType: WrapperType, channelName: string = "wrapperChannel") {
         this.wrapperType = wrapperType;
@@ -22,17 +22,16 @@ export default class WrapperConnection {
     }
 
     public close() {
-        if (this.bc) {
+        if (this.mc) {
             console.info(`Closing wrapper: ${this.wrapperType} BC channel: ${this.channelName}`);
-            this.bc.close();
             this.onClose();
         }
     }
 
     public send(obj: object) {
-        if (this.bc) {
+        if (this.mc) {
             const data = this.safeStringify(obj);
-            this.bc.postMessage(data);
+            this.mc.port2.postMessage(data)
             console.info(`>>> Sending data: ${data}`);
         } else {
             console.warn("Non-established BC cannot send messages");
@@ -51,9 +50,9 @@ export default class WrapperConnection {
     }
 
     private createBroadcastChannel() {
-        const bc = new BroadcastChannel(this.channelName);
+        const channel = new MessageChannel();
 
-        bc.onmessage = (ev) => {
+        channel.port1.onmessage = (ev) => {
             let data;
             let parsed = false;
             try {
@@ -69,10 +68,10 @@ export default class WrapperConnection {
             }
         }
 
-        bc.onmessageerror = (err) => {
+        channel.port1.onmessageerror = (err) => {
             console.warn(`BC error: ${err}`);
         }
 
-        this.bc = bc;
+        this.mc = channel;
     }
 }
