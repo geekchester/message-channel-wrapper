@@ -1,5 +1,5 @@
 {
-  "name": "erply-pos-stub",
+  "name": "message-channel-wrapper",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
