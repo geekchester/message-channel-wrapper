@@ -15,7 +15,7 @@ export default class WrapperConnection {
     }
 
     public init(onMessage: (data: any) => void, onClose: () => void) {
-        console.info(`Starting wrapper: ${this.wrapperType} BC channel: ${this.channelName}`)
+        console.info(`Starting wrapper: ${this.wrapperType} MC channel: ${this.channelName}`)
         this.onClose = onClose;
         this.onMessage = onMessage;
         this.createBroadcastChannel();
@@ -23,7 +23,7 @@ export default class WrapperConnection {
 
     public close() {
         if (this.mc) {
-            console.info(`Closing wrapper: ${this.wrapperType} BC channel: ${this.channelName}`);
+            console.info(`Closing wrapper: ${this.wrapperType} MC channel: ${this.channelName}`);
             this.onClose();
         }
     }
@@ -34,7 +34,7 @@ export default class WrapperConnection {
             this.mc.port2.postMessage(data)
             console.info(`>>> Sending data: ${data}`);
         } else {
-            console.warn("Non-established BC cannot send messages");
+            console.warn("Non-established MC cannot send messages");
         }
     }
 
@@ -69,7 +69,7 @@ export default class WrapperConnection {
         }
 
         channel.port1.onmessageerror = (err) => {
-            console.warn(`BC error: ${err}`);
+            console.warn(`MC error: ${err}`);
         }
 
         this.mc = channel;

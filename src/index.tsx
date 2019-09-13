@@ -12,7 +12,6 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-const wrapperPublisher = new WrapperConnection("ios", "ios-wrapper-dev");
 const wrapperSubscriber = new WrapperConnection("ios", "ios-wrapper-dev");
 
 const messageHandler = (value: any) => {
@@ -23,21 +22,17 @@ const closeHandler = () => {
     console.log("Post close action to execute");
 }
 
-wrapperPublisher.init((data) => { }, closeHandler);
-
 wrapperSubscriber.init(
     messageHandler,
     closeHandler,
 );
 
 /* eslint-disable no-param-reassign, no-magic-numbers, no-native-reassign */
-(window as any).wrapperPublisher = wrapperPublisher;
 (window as any).wrapperSubscriber = wrapperSubscriber;
 
 
 window.addEventListener("beforeunload", () => {
     if ((window as any).wrapperConnection) {
-        (window as any).wrapperPublisher.close();
         (window as any).wrapperSubscriber.close();
     }
     return null;
